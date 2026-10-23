@@ -36,7 +36,7 @@ window.CONFIG = {
       ],
       venue: 'ڈی ایچ اے ولا کمیونٹی مسجد',
       address: 'سیکٹر ڈی، ڈی ایچ اے، بہاولپور، پاکستان',
-      map: 'https://www.google.com/maps/search/?api=1&query=29.3262204%2C71.6583823',
+      map: 'https://maps.app.goo.gl/13yKU9pjDP7b9NVH8',
     },
     {
       key: 'b', icon: 'baraat', title: 'بارات', subtitle: 'تقریبِ بارات و رخصتی',
