@@ -51,6 +51,7 @@ const CONFIG = {
     },
     {
       key: 'w', icon: 'walima', title: 'ولیمہ', subtitle: 'دعوتِ ولیمہ',
+      photo: 'walima-marquee.jpg', photoStyle: 'night', // night & gold look
       day: 'اتوار', dateText: '۲۲ نومبر ۲۰۲۶', date: '2026-11-22', start: '13:00', end: '16:00',
       schedule: [
         ['آمدِ مہمانان', 'دوپہر ۱:۰۰ بجے'],
@@ -201,7 +202,7 @@ function render() {
 
   // events
   $('#events').innerHTML = (myEvents.length ? myEvents : CONFIG.events).map((ev, i) => `
-    <article class="paper event reveal${ev.photo ? ' has-photo' : ''}"${ev.photo ? ` style="--photo:url('${ev.photo}')"` : ''}>
+    <article class="paper event reveal${ev.photo ? (ev.photoStyle === 'night' ? ' photo-night' : ' has-photo') : ''}"${ev.photo ? ` style="--photo:url('${ev.photo}')"` : ''}>
       <svg class="corner sm ${i % 2 ? 'tl' : 'tr'}"><use href="#corner"/></svg>
       <svg class="corner sm ${i % 2 ? 'br' : 'bl'}"><use href="#corner"/></svg>
       <div class="ev-icon">${ICONS[ev.icon] || ''}</div>
@@ -237,11 +238,11 @@ function render() {
 
 /* ---------- keep each name on one line (shrink long names to fit) ---------- */
 function fitNames() {
-  $$('.names > span:not(.amp)').forEach((el) => {
+  $$('.names > span:not(.amp), .en-names').forEach((el) => {
     el.style.fontSize = '';
-    const max = el.parentElement.clientWidth;
+    const min = el.classList.contains('en-names') ? 11 : 20;
     let size = parseFloat(getComputedStyle(el).fontSize);
-    while (el.scrollWidth > max && size > 20) { size -= 1; el.style.fontSize = size + 'px'; }
+    while (el.scrollWidth > el.clientWidth && size > min) { size -= .5; el.style.fontSize = size + 'px'; }
   });
 }
 

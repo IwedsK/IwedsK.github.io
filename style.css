@@ -159,7 +159,7 @@ button { font: inherit; }
 }
 .names > span { max-width: 100%; white-space: nowrap; }
 .names .amp { font-size: .78em; color: var(--blue); line-height: 1.5; margin: 6px 0 2px; }
-.en-names { font-family: var(--en); font-style: italic; font-size: 20px; color: var(--ink-soft); letter-spacing: .06em; direction: ltr; line-height: 1.6; }
+.en-names { white-space: nowrap; overflow: hidden; font-family: var(--en); font-style: italic; font-size: 20px; color: var(--ink-soft); letter-spacing: .06em; direction: ltr; line-height: 1.6; }
 .date-big { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 4px; }
 .db-side { border-top: 1px solid var(--blue-l); border-bottom: 1px solid var(--blue-l); padding: 0 12px; font-size: 16px; min-width: 92px; line-height: 2.1; }
 .db-num { font-size: 52px; font-weight: 700; color: var(--blue); line-height: 1.6; }
@@ -372,6 +372,50 @@ button { font: inherit; }
 .dua-ar { font-family: var(--ar); font-size: 22px; color: var(--blue-d); line-height: 1.9; }
 .dua-ur { font-size: 14px; color: var(--ink-soft); margin-top: 6px; }
 .inshallah { font-size: 22px; color: var(--blue); margin-top: 12px; }
+
+/* ---- Walima: night & gold card with the marquee photo on top ---- */
+.event.photo-night {
+  --gold: #e8c46e; --gold-soft: rgba(232, 196, 110, .55);
+  color: #f6ecd3; padding-top: 262px; padding-bottom: 36px;
+  background: radial-gradient(120% 60% at 50% 100%, #1b2350 0%, #0b1230 60%, #070c22 100%);
+}
+.event.photo-night::before {        /* marquee photo, wide window at the top */
+  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 300px; z-index: 0;
+  background:
+    linear-gradient(180deg, rgba(7, 12, 34, .0) 0%, rgba(7, 12, 34, .15) 55%, rgba(11, 18, 48, .95) 100%),
+    var(--photo) center 40% / cover no-repeat;
+  -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 100%);
+          mask-image: linear-gradient(180deg, #000 72%, transparent 100%);
+}
+.event.photo-night::after { border-color: var(--gold-soft); inset: 10px; }
+.photo-night .corner { display: none; }
+.photo-night .ev-icon {
+  background: #0b1230; color: var(--gold); border: 1.5px solid var(--gold);
+  box-shadow: 0 0 0 6px rgba(232, 196, 110, .12), 0 0 26px rgba(232, 196, 110, .35);
+}
+.photo-night .ev-sub { color: rgba(246, 236, 211, .75); letter-spacing: .02em; }
+.photo-night .ev-title { color: var(--gold); text-shadow: 0 0 22px rgba(232, 196, 110, .45); }
+.photo-night .ev-date {
+  background: transparent; color: var(--gold);
+  border: 1px solid var(--gold); border-left: 0; border-right: 0; border-radius: 0;
+  padding: 0 24px;
+}
+.photo-night .ev-schedule { max-width: 320px; }
+.photo-night .ev-schedule li span:first-child { color: rgba(246, 236, 211, .8); }
+.photo-night .ev-schedule li span:last-child { color: var(--gold); }
+.photo-night .ev-schedule li i { border-color: var(--gold-soft); }
+.photo-night .ev-venue {
+  background: transparent; border: 0; border-radius: 0; position: relative;
+  margin-top: 18px; padding: 14px 10px;
+}
+.photo-night .ev-venue::before, .photo-night .ev-venue::after {
+  content: '❖'; display: block; color: var(--gold); font-size: 12px; line-height: 1;
+  background: linear-gradient(90deg, transparent, var(--gold-soft), transparent) center / 100% 1px no-repeat;
+}
+.photo-night .ev-venue strong { color: #fff; font-size: 19px; }
+.photo-night .ev-venue span { color: rgba(246, 236, 211, .75); }
+.photo-night .btn { background: transparent; border-color: var(--gold); color: var(--gold); }
+.photo-night .btn:hover { background: var(--gold); color: #0b1230; }
 
 /* floating music */
 .music-fab {
