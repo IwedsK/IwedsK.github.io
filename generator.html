@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>مہمانوں کے لنکس | دعوت نامہ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { overflow: auto; }
+    .gen { max-width: 520px; margin: 30px auto; padding: 0 16px; }
+    label { display: block; text-align: right; font-size: 15px; margin-top: 12px; color: var(--blue-d); }
+    input[type=text], input[type=number] {
+      width: 100%; font-family: var(--ur); font-size: 16px; line-height: 2.2;
+      padding: 4px 14px; border: 1.5px solid var(--line); border-radius: 12px; background: #fbfcff; color: var(--ink);
+    }
+    input:focus { outline: none; border-color: var(--blue); }
+    .row { display: flex; gap: 10px; align-items: center; margin-top: 10px; text-align: right; font-size: 14px; }
+    .out { margin-top: 18px; padding: 12px; background: var(--sky); border-radius: 12px; direction: ltr; word-break: break-all; font-family: monospace; font-size: 13px; line-height: 1.6; text-align: left; }
+    .acts { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 14px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 14px; }
+    td, th { border-bottom: 1px solid var(--line); padding: 4px 6px; text-align: right; }
+  </style>
+</head>
+<body>
+  <div class="gen">
+    <div class="paper">
+      <h1 class="sec-title">مہمانوں کے لیے ذاتی لنک</h1>
+      <p class="muted">ہر مہمان کا نام اور برات میں اجازت یافتہ افراد کی تعداد لکھیں</p>
+
+      <label for="name">مہمان کا نام</label>
+      <input type="text" id="name" placeholder="مثلاً جناب احمد علی صاحب و فیملی">
+
+      <label for="count">برات میں افراد کی تعداد</label>
+      <input type="number" id="count" min="1" max="99" value="4">
+
+      <div class="row"><input type="checkbox" id="nopass"><label for="nopass" style="margin:0">برات پاس نہ دکھائیں (صرف ولیمہ / دیگر مہمان)</label></div>
+
+      <div class="out" id="out"></div>
+      <div class="acts">
+        <button class="btn solid" id="copy">لنک کاپی کریں</button>
+        <a class="btn wa" id="wa" target="_blank" rel="noopener">واٹس ایپ پر بھیجیں</a>
+        <button class="btn" id="add">فہرست میں شامل کریں</button>
+      </div>
+
+      <table id="list" hidden><thead><tr><th>نام</th><th>افراد</th><th></th></tr></thead><tbody></tbody></table>
+    </div>
+  </div>
+
+<script>
+  const base = location.href.replace(/generator\.html.*$/, '');
+  const $ = (id) => document.getElementById(id);
+  const ur = (n) => String(n).replace(/\d/g, (d) => '۰۱۲۳۴۵۶۷۸۹'[d]);
+
+  function link() {
+    const p = new URLSearchParams();
+    const n = $('name').value.trim();
+    if (n) p.set('to', n);
+    if ($('nopass').checked) p.set('pass', '0'); else p.set('g', Math.max(1, parseInt($('count').value, 10) || 1));
+    return base + '?' + p.toString();
+  }
+  function msg(url) {
+    const n = $('name').value.trim();
+    return `السلام علیکم${n ? ' ' + n : ''}!\nاسحاق و خدیجہ کی شادی کی تقریبات میں آپ کو دلی دعوت دی جاتی ہے۔\n` +
+      ($('nopass').checked ? '' : `برات میں ${ur($('count').value)} افراد مدعو ہیں۔\n`) +
+      `دعوت نامہ کھولیں:\n${url}`;
+  }
+  function update() {
+    const url = link();
+    $('out').textContent = url;
+    $('wa').href = 'https://wa.me/?text=' + encodeURIComponent(msg(url));
+    $('count').disabled = $('nopass').checked;
+  }
+  ['name', 'count', 'nopass'].forEach((id) => $(id).addEventListener('input', update));
+  $('copy').onclick = async () => {
+    try { await navigator.clipboard.writeText(link()); $('copy').textContent = 'کاپی ہو گیا ✓'; }
+    catch { $('copy').textContent = 'دستی طور پر کاپی کریں'; }
+    setTimeout(() => ($('copy').textContent = 'لنک کاپی کریں'), 1600);
+  };
+  $('add').onclick = () => {
+    const tb = document.querySelector('#list tbody');
+    const tr = document.createElement('tr');
+    const url = link();
+    const c1 = document.createElement('td'); c1.textContent = $('name').value.trim() || '—';
+    const c2 = document.createElement('td'); c2.textContent = $('nopass').checked ? '—' : ur($('count').value);
+    const c3 = document.createElement('td');
+    const a = document.createElement('a'); a.className = 'btn'; a.href = 'https://wa.me/?text=' + encodeURIComponent(msg(url)); a.target = '_blank'; a.textContent = 'بھیجیں';
+    c3.append(a); tr.append(c1, c2, c3); tb.append(tr);
+    $('list').hidden = false; $('name').value = ''; update();
+  };
+  update();
+</script>
+</body>
+</html>
