@@ -260,6 +260,44 @@ button { font: inherit; }
   display: grid; place-items: center; background: var(--sky); color: var(--blue);
 }
 .ev-icon svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+/* ---- event card with a full photo background ---- */
+.event.has-photo {
+  color: #fff; padding-top: 250px; padding-bottom: 34px;
+  background: linear-gradient(180deg, #24409c 0%, #142c80 55%, #0f2266 100%);
+}
+.event.has-photo::before {          /* the photo, fading softly into the blue */
+  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 64%; z-index: 0;
+  background:
+    linear-gradient(180deg, rgba(16, 36, 110, .1) 0%, rgba(16, 36, 110, .3) 45%, rgba(20, 44, 128, .85) 100%),
+    var(--photo) 32% 30% / cover no-repeat;
+  -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+          mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+}
+.event.has-photo::after { border-color: rgba(255, 255, 255, .35); }
+.event.has-photo .corner { opacity: .95; }
+.has-photo .ev-icon {
+  background: rgba(255, 255, 255, .16); color: #fff;
+  border: 1px solid rgba(255, 255, 255, .5);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+.has-photo .ev-sub { color: rgba(255, 255, 255, .85); }
+.has-photo .ev-title { color: #fff; text-shadow: 0 2px 18px rgba(0, 0, 0, .35); }
+.has-photo .ev-date { background: #fff; color: var(--blue-d); }
+.has-photo .ev-schedule,
+.has-photo .ev-venue {
+  background: rgba(255, 255, 255, .12);
+  border: 1px solid rgba(255, 255, 255, .28);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  border-radius: 14px;
+}
+.has-photo .ev-schedule { padding: 6px 16px; }
+.has-photo .ev-schedule li span:first-child { color: rgba(255, 255, 255, .85); }
+.has-photo .ev-schedule li span:last-child { color: #fff; }
+.has-photo .ev-schedule li i { border-color: rgba(255, 255, 255, .45); }
+.has-photo .ev-venue strong { color: #fff; }
+.has-photo .ev-venue span { color: rgba(255, 255, 255, .8); }
+.has-photo .btn { background: rgba(255, 255, 255, .1); border-color: rgba(255, 255, 255, .7); color: #fff; }
+.has-photo .btn:hover { background: #fff; color: var(--blue-d); }
 .ev-sub { font-size: 13px; color: var(--ink-soft); margin-top: 6px; line-height: 1.8; }
 .ev-title { font-size: 32px; color: var(--blue-d); line-height: 1.8; }
 .ev-date { display: inline-flex; gap: 10px; align-items: center; background: var(--blue); color: #fff; border-radius: 999px; padding: 0 18px; font-size: 15px; line-height: 2.3; margin: 4px 0 14px; }

@@ -27,6 +27,7 @@ const CONFIG = {
   events: [
     {
       key: 'n', icon: 'nikah', title: 'نکاح', subtitle: 'تقریبِ عقدِ نکاح',
+      photo: 'nikah-masjid.jpg', // optional: picture at the top of this card (put the file next to index.html)
       day: 'جمعہ', dateText: '۲۰ نومبر ۲۰۲۶', date: '2026-11-20', start: '15:30', end: '17:00',
       schedule: [
         ['آمدِ مہمانان', 'نمازِ عصر سے قبل'],
@@ -200,7 +201,7 @@ function render() {
 
   // events
   $('#events').innerHTML = (myEvents.length ? myEvents : CONFIG.events).map((ev, i) => `
-    <article class="paper event reveal">
+    <article class="paper event reveal${ev.photo ? ' has-photo' : ''}"${ev.photo ? ` style="--photo:url('${ev.photo}')"` : ''}>
       <svg class="corner sm ${i % 2 ? 'tl' : 'tr'}"><use href="#corner"/></svg>
       <svg class="corner sm ${i % 2 ? 'br' : 'bl'}"><use href="#corner"/></svg>
       <div class="ev-icon">${ICONS[ev.icon] || ''}</div>
