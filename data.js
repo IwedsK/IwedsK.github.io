@@ -22,9 +22,32 @@ window.CONFIG = {
     note: 'براہِ کرم مقررہ تعداد سے زائد افراد ہمراہ نہ لائیں تاکہ انتظامات میں آسانی رہے۔',
   },
 
-  // key: n = Nikah, b = Baraat, w = Walima (used in guest links / sheet)
+  // key: q = Quran Khawani, n = Nikah, b = Baraat, w = Walima (used in guest links / sheet)
   // start/end = 24-hour time for the calendar button
   events: [
+    {
+      key: 'q', icon: 'quran', title: 'قرآن خوانی', subtitle: 'محفلِ قرآن خوانی و دعا',
+      badge: 'صرف خواتین کے لیے', theme: 'rose',
+      inviteOnly: true, // only shown to guests whose link includes q (Yes in the sheet)
+      day: 'جمعہ', dateText: '۲۰ نومبر ۲۰۲۶', date: '2026-11-20', start: '12:00', end: '15:00',
+      schedule: [
+        ['قرآن خوانی', 'دوپہر ۱۲ بجے'],
+        ['دعا', 'دوپہر ۲ بجے'],
+        ['اختتام', 'سہ پہر ۳ بجے'],
+      ],
+      venue: 'رہائش گاہِ دولہا',
+      address: 'گلی نمبر ۱۱، مسلم ٹاؤن، بہاولپور',
+      map: 'https://maps.app.goo.gl/yjNekwX1TGLs3Xd8A',
+      // ladies hosting this event (shown inside this card only)
+      hostsTitle: 'منتظرات',
+      hosts: [
+        { title: 'دولہا کی والدہ', names: ['محترمہ رضوانہ شکور'] },
+        { title: 'دولہا کی خالہ', names: ['محترمہ نورین نثار'] },
+        { title: 'دولہا کی بہنیں', names: ['اقصیٰ نثار', 'اریبہ نثار', 'حفصہ نثار', 'فاطمہ شکور'] },
+        { title: 'دولہا کی بھانجیاں', names: ['انوشہ نثار', 'ابیرش نثار', 'علیشہ نثار', 'عائشہ نثار'] },
+        { title: 'دولہا کی بھتیجی', names: ['عفاف بنتِ سعد'] },
+      ],
+    },
     {
       key: 'n', icon: 'nikah', title: 'نکاح', subtitle: 'تقریبِ عقدِ نکاح',
       photo: 'nikah-masjid.jpg', // optional: picture at the top of this card (put the file next to index.html)
@@ -74,26 +97,23 @@ window.CONFIG = {
   ],
 
   family: [
+    // 1) featured at the top
+    { hero: true, label: 'والدِ دولہا', name: 'جناب حافظ عبدالشکور صاحب' },
+    // 2) groom's own family
     {
-      title: 'بزرگانِ خاندان',
-      names: [
-        'جناب عبدالحمید صاحب (خانپور)',
-        'جناب عبدالحفیظ صاحب (بہاولپور)',
-        'جناب محمد سعید اختر صاحب (لاہور)',
-        'جناب عبدالرشید صاحب (خانیوال)',
-        'جناب عبدالعزیز صاحب (تلمبہ)',
-        'جناب محمد رشید صاحب (چشتیاں)',
-        'جناب حاجی محمد رفیع صاحب',
-      ],
-    },
-    {
-      title: 'برادران و عزیزان',
-      // each group = one uncle's sons. special: true → gold highlight
+      title: '',
       groups: [
         { title: 'برادرِ دولہا', special: true,
           names: ['بھائی محمد سعد شکور صاحب'] },
         { title: 'عزیزانِ گرامی',
           names: ['بھائی عامر نثار صاحب', 'بھائی یاسر نثار صاحب'] },
+      ],
+    },
+    // 3) elders and their sons — title = elder's name, place = city
+    {
+      title: 'بزرگانِ خاندان',
+      elders: true,
+      groups: [
         { title: 'جناب عبدالحمید صاحب', place: 'خانپور',
           names: ['بھائی خالد حمید صاحب', 'بھائی زاہد حمید صاحب', 'بھائی طلحہ حمید صاحب'] },
         { title: 'جناب عبدالحفیظ صاحب', place: 'بہاولپور',
@@ -108,7 +128,7 @@ window.CONFIG = {
           names: ['بھائی راشد خورشید صاحب', 'بھائی اعجاز خورشید صاحب', 'بھائی خورشید ۱ صاحب', 'بھائی خورشید ۲ صاحب'] },
         { title: 'جناب حاجی محمد رفیع صاحب',
           names: ['بھائی صائم رضوان صاحب', 'بھائی عمر رضوان صاحب', 'بھائی عبداللہ رضوان صاحب', 'بھائی حسن رضوان صاحب'] },
-        { // no heading yet — add  title: '...',  if needed
+        { // no heading
           names: ['بھائی عمر حبیب صاحب', 'بھائی سہیل حبیب صاحب'] },
       ],
     },
