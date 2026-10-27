@@ -98,7 +98,7 @@ window.CONFIG = {
 
   family: [
     // 1) featured at the top
-    { hero: true, label: 'والدِ دولہا', name: 'جناب حافظ عبدالشکور صاحب' },
+    { hero: true, name: 'جناب حافظ عبدالشکور صاحب', sub: 'بمع اہلِ خانہ' },
     // 2) groom's own family
     {
       title: '',
